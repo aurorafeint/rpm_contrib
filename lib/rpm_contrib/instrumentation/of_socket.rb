@@ -1,14 +1,15 @@
 DependencyDetection.defer do
-  @name = :ofsocket
-  
+  @name = :of_socket
+
   depends_on do
-    defined?(::OFSocket) && !NewRelic::Control.instance['disable_ofsocket']
+    debugger
+    defined?(::OFSocket) && !NewRelic::Control.instance['disable_of_socket']
   end
-  
+
   executes do
     NewRelic::Agent.logger.debug 'Installing OFSocket instrumentation'
   end
-  
+
   executes do
     ::OFSocket::StompConnection.class_eval do
       add_method_tracer :receive_connect, 'OFSocket/StompConnection/receive_connect'
