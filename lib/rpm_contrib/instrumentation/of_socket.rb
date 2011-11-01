@@ -2,7 +2,6 @@ DependencyDetection.defer do
   @name = :of_socket
 
   depends_on do
-    debugger
     defined?(::OFSocket) && !NewRelic::Control.instance['disable_of_socket']
   end
 
