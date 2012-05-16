@@ -134,6 +134,12 @@ This adds basic instrumentation to the `run` and `results` method of Ultrasphinx
 
 You can disable it with `disable_ultrasphinx` in your newrelic.yml file.
 
+### Workling
+
+This adds instrumentation to the Workling::Base and all children, for all defined public methods not inherited from the Workling::Base class
+
+You can disable it with `disable_workling` in your newrelic.yml file.
+
 ### YAJL
 
 This adds instrumentation to the YAJL json parser

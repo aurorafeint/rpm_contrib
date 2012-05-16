@@ -44,6 +44,7 @@ the New Relic Ruby monitoring gem newrelic_rpm.
     "lib/rpm_contrib/instrumentation/sinatra.rb",
     "lib/rpm_contrib/instrumentation/typhoeus.rb",
     "lib/rpm_contrib/instrumentation/ultrasphinx.rb",
+    "lib/rpm_contrib/instrumentation/workling.rb",
     "lib/rpm_contrib/instrumentation/yajl.rb",
     "lib/rpm_contrib/language_support.rb",
     "lib/rpm_contrib/samplers.rb",
@@ -51,7 +52,8 @@ the New Relic Ruby monitoring gem newrelic_rpm.
     "test/schema.rb",
     "test/test_curb.rb",
     "test/test_redis.rb",
-    "test/test_resque.rb"
+    "test/test_resque.rb",
+    "test/test_workling.rb"
   ]
   s.homepage = %q{http://github.com/newrelic/rpm_contrib}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Contributed Instrumentation for New Relic RPM", "-m", "README.md"]
