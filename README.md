@@ -3,6 +3,46 @@
 The `rpm_contrib` gem contains instrumentation for the New Relic RPM agent
 contributed by the community of RPM users.  It requires the RPM Agent to run.
 
+## Deprecation of RPM Contrib
+
+Over the next several months we are planning to phase out the rpm_contrib gem.
+We plan to migrate the existing instrumentation into separate projects that
+instrument indivdual libraries or frameworks.  We see this as having a number of
+advantages for newrelic users.  We will provide a list of recommended
+instrumentation projects.
+
+###  Request for Maintainers
+
+If you're interested in maintaining instrumentation for a specific
+library/framework, please let us know.  We'd love to work with you and promote
+your project.  -The New Relic Ruby Agent Team
+
+## New Relic Ruby Agent Plugins (Seperate Projects)
+
+Here is a list of instrumentation projects for various Ruby libraries:
+
+#### Redis
+
+As of version 2.1.8 Redis instrumentation has been removed from rpm_contrib.
+Please use Evan Phoenix's `newrelic-redis` gem instead.
+
+https://github.com/evanphx/newrelic-redis
+
+#### Faraday
+
+Instrumentation for the HTTP client library Faraday is available at:
+
+https://github.com/Viximo/newrelic-faraday
+
+#### Riak-Client and Ripple
+
+Riak client and ripple instrumenatation are available at:
+
+https://github.com/alinpopa/newrelic-riak
+
+
+## Getting Started
+
 To use the rpm_contrib gem, install the `rpm_contrib` gem from rubygems.org.
 It will also install the required version of the `newrelic_rpm` gem if it's not
 already installed.
@@ -23,9 +63,6 @@ require the rpm_contrib gem:
     require 'rubygems'
     require 'rpm_contrib'
 
-When you load the rpm_contrib gem, the `newrelic_rpm` gem will also be
-initialized.  No need for a separate require statement for `newrelic_rpm`. 
-
 In non-Rails frameworks, it's important that the New Relic Agent gets
 loaded as late as possible, or that the final initialization hook is called 
 after all other frameworks have loaded:
@@ -43,16 +80,17 @@ fix the auto-detection logic.
 If this does not help then set the `log_level` to `debug` in the `newrelic.yml` file
 and examine the `newrelic_agent.log` file for errors after restarting your app.
 
+
 ## Supported Frameworks
 
 A number of frameworks are supported in the contrib gem.  They are all turned on
 by default but you can add settings to your newrelic.yml to disable any of them.
 
-### ActiveMQ
+### ActiveMessaging
 
 The gem will detect the underlying ActiveMessaging::Processor class and instrument the `on_message` method
 
-It can be disabled with the `disable_active_mq` flag in your newrelic.yml file.
+It can be disabled with the `disable_active_messaging` flag in your newrelic.yml file.
 
 ### Cassandra
 
@@ -82,17 +120,29 @@ The gem will instrument both Curl::Easy and Curl::Multi - they should show up si
 
 You can disable it with `disable_curb` in your newrelic.yml file.
 
-## Elastic Search
+### Elastic Search
 
 The gem will instrument ElasticSearch::Client. The metrics should show up in the UI
 
 You can disable it with `disable_elastic_search_instrumentation` in your newrelic.yml file.
+
+### KyotoTycoon
+
+The gem will instrument KyotoTycoon.
+
+You can disable it with `disable_kyototycoon` in your newrelic.yml file.
 
 ### Paperclip
 
 No special configuration required for Paperclip visibility.  
 
 You can disable it by setting `disable_paperclip` to true in your newrelic.yml file.
+
+### Picky
+
+The gem will instrument the [Picky semantic search engine](http://florianhanke.com/picky/) so it should be visible in transaction traces and the web transactions page.
+
+You can disable it with `disable_picky` in your newrelic.yml file.
 
 ### MongoDB
 
@@ -110,17 +160,23 @@ To disable resque, set 'disable_resque' to true in your newrelic.yml file.
 
 ### Redis
 
-Redis instrumentation will record operations as well as `allWeb` and `allOther`
-summary metrics under the `Database/Redis` metric namespace. This instrumentation
-supports Redis versions 1.x and 2.x. 
+Redis instrumentation has been removed from rpm_contrib.
 
-To disable Redis instrumentation, set 'disable_redis' to true in your newrelic.yml file.
+Please use Evan Phoenix's `newrelic-redis` gem instead.
+https://github.com/evanphx/newrelic-redis
 
 ### Sinatra view instrumentation
 
 This adds instrumentation to the `render` methods in Sinatra::Base
 
 You can disable it with `disable_sinatra_template` in your newrelic.yml file.
+
+### ThinkingSphinx instrumentation
+
+This adds instrumentation to the `initialize` and `results` method of ThinkingSphinx::Search
+
+You can disable it with `disable_thinking_sphinx` in your newrelic.yml file.
+
 
 ### Typhoeus instrumentation
 
@@ -239,7 +295,8 @@ we'll be happy to help you work through it.
   files will be loaded when the RPM agent is initialized.
 * Add samplers to `lib/rpm_contrib/samplers`.  These classes are
   installed automatically when the RPM agent is initialized.
-* Add tests.  
+* Add tests.
+* Update README.md
 * Commit, do not mess with the Rakefile, version, or history.  (if you
   want to have your own version, that is fine but bump version in a
   commit by itself I can ignore when I pull)
